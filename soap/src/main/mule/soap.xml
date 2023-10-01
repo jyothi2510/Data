@@ -21,6 +21,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<http:listener doc:name="Listener" doc:id="a57b0a8c-7980-42f6-8d40-250ac064fc12" config-ref="HTTP_Listener_config" path="/soap"/>
 		<set-variable value="#[attributes.queryParams.number1]" doc:name="Set Variable" doc:id="bc52fac5-ac8f-41f7-990d-094248c64fba" variableName="number1"/>
 		<set-variable value="#[attributes.queryParams.number2]" doc:name="Set Variable" doc:id="746995e0-6aad-4224-bad1-e3db21543fda" variableName="number2"/>
+		<set-variable value="#[attributes.queryParams.number3]" doc:name="Set Variable" doc:id="746995e0-6aad-4224-bad1-e3db21543fda" variableName="number3"/>
 		<ee:transform doc:name="Transform Message" doc:id="06925ac2-7401-4ba4-8e63-b25ba7b83a2b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
