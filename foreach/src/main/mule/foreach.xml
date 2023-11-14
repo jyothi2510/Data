@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<flow name="foreachFlow" doc:id="b0659d6d-3cf1-466b-881a-481abf8501bc" >
+		<http:listener doc:name="input" doc:id="c1188300-bd21-4d08-8019-a63d9c7500ec" config-ref="HTTP_Listener_config" path="/foreach"/>
+		<ee:transform doc:name="load &amp; dispatch" doc:id="5128a1f6-b4d1-4a10-a9bc-fead9d4f022b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+1 to 100 map
+{
+	id: 200 + $$,
+	name:"Siva",
+	number: 343254534,
+	lname:"Reddy"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<batch:job jobName="foreachBatch_Job" doc:id="8213e6dc-6df1-42df-9911-260093597c99" >
+			<batch:process-records >
+				<batch:step name="Batch_Step" doc:id="c52d2100-ba92-41dc-a717-8ff44d032d7e" >
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="994a7aca-4bd2-41bb-a6ce-7e9a2476b7ef" size="20">
+						<logger level="INFO" doc:name="Logger" doc:id="84976ec5-b04f-4f5f-af19-bfeba18ed13d" message="#[payload]" />
+						<db:bulk-insert doc:name="Bulk insert" doc:id="fee1be27-4df7-41ba-88a5-c5d544ad0904" config-ref="Database_Config">
+							<db:sql ><![CDATA[insert into data (id,name,number,lname)
+values(:id,:name, :number, :lname);]]></db:sql>
+						</db:bulk-insert>
+					</batch:aggregator>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<ee:transform doc:name="on-complete" doc:id="d458a75f-b4fd-4acc-9cbc-c228daee19ff">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json	
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+				<logger level="INFO" doc:name="logger" doc:id="1b8b0abe-6b29-4ef7-8d4b-78b593653142" message="#[payload]" />
+			</batch:on-complete>
+		</batch:job>
+	</flow>
+</mule>
