@@ -1,0 +1,48 @@
+#%RAML 1.0
+title: Calculator-API
+description: " This API is used to perform the Addition Ope"
+version: V1
+traits:
+  query: !include /traits/trait.raml
+mediaType: application/json
+
+/Addition:
+  get:
+    is:
+      - query
+    responses:
+      200:
+        body:
+            example: !include Examples/Addition-response.json
+ 
+/Subtraction:
+  get:
+    is:
+      - query
+
+    responses:
+      200:
+        body:
+            example: !include /Examples/Subtraction-response.json
+
+/Multipliation:
+  get:
+    is:
+      - query
+    responses:
+      200:
+        body:
+            example: !include /Examples/Multiplication-response.json
+
+/Divison:
+    get:
+      is: [query]
+
+      responses:
+        200:
+          body:
+              example: !include /Examples/Divison-response.json
+ 
+     
+         
+

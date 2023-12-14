@@ -1,0 +1,38 @@
+#%RAML 1.0 Trait
+queryParameters:
+      Number1:
+        required: true
+        type: integer
+      Number2:
+        required: true
+        type: integer
+responses:
+      400:
+        body:
+         application/json:
+          example:
+            {
+              "Message":"Bad request"
+            }
+      
+      404:
+        body:
+          application/json:
+            example:
+              {
+                "Message": "Not found"
+              }
+      500:
+        body:
+         application/json:
+          example:
+            {
+              "Message":"Internal server error"
+            }
+      405:
+        body:
+          application/json:
+           example:
+             {
+               "Message": "Method not allowed" 
+             }

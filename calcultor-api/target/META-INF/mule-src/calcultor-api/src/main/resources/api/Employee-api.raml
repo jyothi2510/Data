@@ -1,0 +1,81 @@
+#%RAML 1.0
+title: Employee-api
+version: V1
+protocols: [http, https]
+description: "This is used to peroform some crud operations"
+
+/emp-create:
+  post:
+    body:
+      application/json:
+        example:
+            {
+              "Name": "Venu",
+              "ID": "1034",
+              "City": "HYD",
+              "Country": "India"
+            }
+
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+                "Message":"Emp id is created successfully"
+              }
+      400:
+        body:
+          application/json:
+            example:
+              {
+                "Message":"Bad Rquest"
+              }
+/ftech-emp:
+  get:
+    queryParameters:
+      name:
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Name": "Arun",
+                "ID":"2519",
+                "City":"Hyd"
+              }
+/update-emp:
+  patch:
+    queryParameters:
+      city: 
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Message":"City updated successfully"
+              }
+
+/Delete-empid:
+  delete:
+    queryParameters:
+      id:
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Message":"id deleted successfully"
+              
+              }
+            
+

@@ -1,0 +1,33 @@
+{
+  "configs": [
+    "calculator-api.xml",
+    "Employee-api.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:calcultor-api:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/calculator-api.raml",
+        "api/Employee-api.raml",
+        "api/Examples/Addition-response.json",
+        "api/Examples/Divison-response.json",
+        "api/Examples/Multiplication-response.json",
+        "api/Examples/Subtraction-response.json",
+        "api/traits/trait.raml",
+        "calculator-api.xml",
+        "Employee-api.xml",
+        "log4j2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
